@@ -8,11 +8,11 @@ import java.awt.Color;
 
 public enum Item {
 
-    KEY_YELLOW((char)28,AsciiPanel.yellow),
+    KEY_YELLOW((char)170,AsciiPanel.yellow),
 
-    KEY_BLUE((char)28,AsciiPanel.blue),
+    KEY_BLUE((char)170,AsciiPanel.blue),
 
-    KEY_RED((char)28,AsciiPanel.red),
+    KEY_RED((char)170,AsciiPanel.red),
 
     HEART((char)3,AsciiPanel.red),
 

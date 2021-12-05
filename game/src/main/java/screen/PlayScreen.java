@@ -3,6 +3,7 @@ package screen;
 import world.*;
 import world.creature.Creature;
 import world.creature.CreatureFactory;
+import world.item.Item;
 import asciiPanel.AsciiPanel;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -80,6 +81,15 @@ public class PlayScreen extends AbstractScreen {
         for(String key:status.keySet()){
             terminal.write(key+": "+status.get(key),x+offsetX,y);
             y++;
+        }
+        displayItems(terminal, y);
+    }
+
+    private void displayItems(AsciiPanel terminal,int offsetY){
+        int offsetX=14;
+        terminal.write("Item: ",offsetX, offsetY);
+        for(Item item:player.items()){
+            terminal.write(item.glyph(),item.color());
         }
     }
 

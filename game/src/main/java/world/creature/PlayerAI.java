@@ -46,11 +46,11 @@ public class PlayerAI extends CreatureAI{
         status.put("HP", creature.hp()+"");
         status.put("Attack", creature.attackValue()+"");
         status.put("Defence", creature.defenseValue()+"");
-        String items="";
-        for(Item item: creature.items()){
-            items+=(item.glyph()+" ");
-        }
-        status.put("Item", items);
+        // String items="";
+        // for(Item item: creature.items()){
+        //     items+=(item.glyph()+" ");
+        // }
+        // status.put("Item", items);
 
         return status;
     }
