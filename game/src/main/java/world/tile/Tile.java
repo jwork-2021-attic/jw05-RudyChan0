@@ -83,27 +83,43 @@ public class Tile {
     // }
 
     public  boolean canBlockSight(){
-        return kind==TileKind.Wall;
+        return kind!=TileKind.FLOOR;
     }
 
     public  boolean canGoThrough(){
-        return kind==TileKind.Floor;
+        return kind==TileKind.FLOOR;
     }
 
     public  boolean isGround(){
-        return kind==TileKind.Floor;
+        return kind==TileKind.FLOOR;
     }
 
     public  boolean isWall(){
-        return kind==TileKind.Wall;
+        return kind==TileKind.WALL;
     }
 
     public  boolean isUpstair(){
-        return kind==TileKind.Upstair;
+        return kind==TileKind.UPSTAIR;
     }
 
     public  boolean isDownstair(){
-        return kind==TileKind.Downstair;
+        return kind==TileKind.DOWNSTAIR;
+    }
+
+    public boolean isDoor(){
+        return kind==TileKind.DOOR_YELLOW||kind==TileKind.DOOR_BLUE||kind==TileKind.DOOR_RED;
+    }
+
+    public boolean isDoorYellow(){
+        return kind==TileKind.DOOR_YELLOW;
+    }
+
+    public boolean isDoorBlue(){
+        return kind==TileKind.DOOR_BLUE;
+    }
+
+    public boolean isDoorRed(){
+        return kind==TileKind.DOOR_RED;
     }
 
     Tile(TileKind kind,char glyph, Color color) {

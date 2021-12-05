@@ -34,10 +34,15 @@ public class ApplicationMain extends JFrame implements KeyListener {
     public void controlThread(){
         scheduledExecutorService = Executors.newScheduledThreadPool(10);
 
-        Runnable runnable = () -> {
+        Runnable repaintRunnable = () -> {
             repaint();
         };
-        Thread repaintThread = new Thread(runnable);
+        Thread repaintThread = new Thread(repaintRunnable);
+
+        Runnable monitorRunnable = () -> {
+            repaint();
+        };
+        Thread monitorThread = new Thread(monitorRunnable);
 
         scheduledExecutorService.scheduleAtFixedRate(repaintThread,0,50, TimeUnit.MILLISECONDS);
     }

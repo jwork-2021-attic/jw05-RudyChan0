@@ -1,8 +1,11 @@
 package world.tile;
 
 public enum TileKind {
-    Floor,
-    Wall,
-    Upstair,
-    Downstair;
+    FLOOR,
+    WALL,
+    UPSTAIR,
+    DOWNSTAIR,
+    DOOR_YELLOW,
+    DOOR_BLUE,
+    DOOR_RED;
 }

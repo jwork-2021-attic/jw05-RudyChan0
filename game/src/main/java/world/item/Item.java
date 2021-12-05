@@ -6,20 +6,9 @@ import world.tile.Tile;
 
 import java.awt.Color;
 
-public enum Item {
+public class Item {
 
-    KEY_YELLOW((char)28,AsciiPanel.yellow),
-
-    KEY_BLUE((char)28,AsciiPanel.blue),
-
-    KEY_RED((char)28,AsciiPanel.red),
-
-    HEART((char)3,AsciiPanel.red),
-
-    ATTACK((char)9,AsciiPanel.red),
-
-    DEFENCE((char)9,AsciiPanel.blue);
-
+    private ItemKind kind;
     private char glyph;
     private Color color;
     private Tile tile;
@@ -27,9 +16,11 @@ public enum Item {
     private final int attackValue=2;
     private final int defenseValue=2;
 
-    Item(char glyph, Color color) {
+    Item(ItemKind kind,char glyph, Color color) {
+        this.kind=kind;
         this.glyph = glyph;
         this.color = color;
+        this.tile=null;
     }
 
     public void setTile(Tile tile){
@@ -44,14 +35,18 @@ public enum Item {
         return color;
     }
 
+    public ItemKind kind(){
+        return kind;
+    }
+
     public void accept(Creature player){
-        if(this==Item.HEART){
+        if(this.kind==ItemKind.HEART){
             player.modifyHP(healValue);
         }
-        else if(this==Item.ATTACK){
+        else if(this.kind==ItemKind.ATTACK){
             player.modifyAttack(attackValue);
         }
-        else if(this==Item.DEFENCE){
+        else if(this.kind==ItemKind.DEFENCE){
             player.modifyDefence(defenseValue);
         }
         else{

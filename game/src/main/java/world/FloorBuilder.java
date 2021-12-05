@@ -9,17 +9,21 @@ import com.google.gson.Gson;
 import org.apache.commons.io.FileUtils;
 
 import world.creature.CreatureFactory;
+import world.item.ItemFactory;
 import world.tile.TileFactory;
+
 
 public class FloorBuilder {
 
     public static final int FLOOR_NUM = 2;
     private CreatureFactory creatureFactory;
     private TileFactory tileFactory;
+    private ItemFactory itemFactory;
 
-    public FloorBuilder(CreatureFactory creatureFactory,TileFactory tileFactory){
+    public FloorBuilder(CreatureFactory creatureFactory,TileFactory tileFactory,ItemFactory itemFactory){
         this.creatureFactory=creatureFactory;
         this.tileFactory=tileFactory;
+        this.itemFactory=itemFactory;
     }
 
     public Floor[] buildFloors() {
@@ -33,7 +37,7 @@ public class FloorBuilder {
             }
             Gson gson = new Gson();
             Floor floor = gson.fromJson(json, Floor.class);
-            floors[i-1]=floor.setCreatureFactory(creatureFactory).setTileFactory(tileFactory).buildFromMap();
+            floors[i-1]=floor.setCreatureFactory(creatureFactory).setTileFactory(tileFactory).setItemFactory(itemFactory).buildFromMap();
         }
         return floors;
     }

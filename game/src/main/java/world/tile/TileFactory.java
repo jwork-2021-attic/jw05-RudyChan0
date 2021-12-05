@@ -5,19 +5,42 @@ import java.awt.Color;
 
 public class TileFactory {
 
+    public Tile newTile(TileKind kind){
+        if(kind==TileKind.FLOOR)return newFloor();
+        else if(kind==TileKind.WALL)return newWall();
+        else if(kind==TileKind.UPSTAIR)return newUpstair();
+        else if(kind==TileKind.DOWNSTAIR)return newDownstair();
+        else if(kind==TileKind.DOOR_YELLOW)return newDoorYellow();
+        else if(kind==TileKind.DOOR_BLUE)return newDoorBlue();
+        else if(kind==TileKind.DOOR_RED)return newDoorRed();
+        else return null;
+    }
+
     public Tile newFloor(){
-        return new Tile(TileKind.Floor,(char)0 , AsciiPanel.coldGrey);
+        return new Tile(TileKind.FLOOR,(char)0 , AsciiPanel.coldGrey);
     }
 
     public Tile newWall(){
-        return new Tile(TileKind.Wall,(char) 219, AsciiPanel.brickRed);
+        return new Tile(TileKind.WALL,(char) 219, AsciiPanel.brickRed);
     }
 
     public Tile newUpstair(){
-        return new Tile(TileKind.Upstair,(char)30,AsciiPanel.green);
+        return new Tile(TileKind.UPSTAIR,(char)30,AsciiPanel.green);
     }
 
     public Tile newDownstair(){
-        return new Tile(TileKind.Downstair,(char)31,AsciiPanel.green);
+        return new Tile(TileKind.DOWNSTAIR,(char)31,AsciiPanel.green);
+    }
+
+    public Tile newDoorYellow(){
+        return new Tile(TileKind.DOOR_YELLOW,(char)8,AsciiPanel.yellow);
+    }
+
+    public Tile newDoorBlue(){
+        return new Tile(TileKind.DOOR_BLUE,(char)8,AsciiPanel.blue);
+    }
+
+    public Tile newDoorRed(){
+        return new Tile(TileKind.DOOR_RED,(char)8,AsciiPanel.red);
     }
 }

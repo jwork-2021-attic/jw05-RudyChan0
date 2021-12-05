@@ -16,8 +16,10 @@ import java.awt.Color;
 import world.creature.Creature;
 import world.creature.CreatureFactory;
 import world.item.Item;
+import world.item.ItemFactory;
 import world.tile.Tile;
 import world.tile.TileFactory;
+import world.tile.TileKind;
 
 public class Floor {
     private String name;
@@ -28,6 +30,7 @@ public class Floor {
     private List<Creature> creatures;
     private CreatureFactory creatureFactory;
     private TileFactory tileFactory;
+    private ItemFactory itemFactory;
 
     private Pair<Integer, Integer> upstairCoords;
     private Pair<Integer, Integer> downstairCoords;
@@ -63,6 +66,10 @@ public class Floor {
         creatures.remove(creature);
     }
 
+    public void changeTile(int x,int y,TileKind kind){
+        tiles[x][y]=tileFactory.newTile(kind);
+    }
+
     public Floor buildFromMap() {
         height = map.length;
         width = map[0].length;
@@ -84,6 +91,15 @@ public class Floor {
                         tiles[w][h] = tileFactory.newDownstair();
                         downstairCoords = new Pair<>(w, h);
                         break;
+                    case "door_yellow":
+                        tiles[w][h] = tileFactory.newDoorYellow();
+                        break;
+                    case "door_blue":
+                        tiles[w][h] = tileFactory.newDoorBlue();
+                        break;
+                    case "door_red":
+                        tiles[w][h] = tileFactory.newDoorRed();
+                        break;
                     case "monster":
                         tiles[w][h] = tileFactory.newFloor();
                         addCreature(creatureFactory.newMonster(), w, h);
@@ -93,22 +109,22 @@ public class Floor {
                         addCreature(creatureFactory.newGuard(), w, h);
                         break;
                     case "heart":
-                        tiles[w][h] = tileFactory.newFloor().setItem(Item.HEART);
+                        tiles[w][h] = tileFactory.newFloor().setItem(itemFactory.newHeart());
                         break;
                     case "attack":
-                        tiles[w][h] = tileFactory.newFloor().setItem(Item.ATTACK);
+                        tiles[w][h] = tileFactory.newFloor().setItem(itemFactory.newAttack());
                         break;
                     case "defence":
-                        tiles[w][h] = tileFactory.newFloor().setItem(Item.DEFENCE);
+                        tiles[w][h] = tileFactory.newFloor().setItem(itemFactory.newDefence());
                         break;
                     case "key_yellow":
-                        tiles[w][h] = tileFactory.newFloor().setItem(Item.KEY_YELLOW);
+                        tiles[w][h] = tileFactory.newFloor().setItem(itemFactory.newKeyYellow());
                         break;
                     case "key_blue":
-                        tiles[w][h] = tileFactory.newFloor().setItem(Item.KEY_BLUE);
+                        tiles[w][h] = tileFactory.newFloor().setItem(itemFactory.newKeyBlue());
                         break;
                     case "key_red":
-                        tiles[w][h] = tileFactory.newFloor().setItem(Item.KEY_RED);
+                        tiles[w][h] = tileFactory.newFloor().setItem(itemFactory.newKeyRed());
                         break;
 
                 }
@@ -131,13 +147,17 @@ public class Floor {
     }
 
     public char glyph(int x, int y) {
-        if(tiles[x][y].hasItem())return tiles[x][y].item().glyph();
-        else return tiles[x][y].glyph();
+        if (tiles[x][y].hasItem())
+            return tiles[x][y].item().glyph();
+        else
+            return tiles[x][y].glyph();
     }
 
     public Color color(int x, int y) {
-        if(tiles[x][y].hasItem())return tiles[x][y].item().color();
-        else return tiles[x][y].color();
+        if (tiles[x][y].hasItem())
+            return tiles[x][y].item().color();
+        else
+            return tiles[x][y].color();
     }
 
     public Tile tile(int x, int y) {
@@ -174,8 +194,13 @@ public class Floor {
         return this;
     }
 
-    public Floor setTileFactory(TileFactory tileFactory){
-        this.tileFactory=tileFactory;
+    public Floor setTileFactory(TileFactory tileFactory) {
+        this.tileFactory = tileFactory;
+        return this;
+    }
+
+    public Floor setItemFactory(ItemFactory itemFactory) {
+        this.itemFactory = itemFactory;
         return this;
     }
 

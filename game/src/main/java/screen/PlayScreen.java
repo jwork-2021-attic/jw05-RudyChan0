@@ -22,8 +22,8 @@ public class PlayScreen extends AbstractScreen {
     //private Floor floor;
     private Creature player;
     private CreatureFactory creatureFactory;
-    private final int screenWidth=20;
-    private final int screenHeight=20;
+    private final int screenWidth=24;
+    private final int screenHeight=24;
     private final int FLOOR_WIDTH=13;
     private final int FLOOR_HEIGHT=13;
     private List<String> messages;
@@ -75,7 +75,7 @@ public class PlayScreen extends AbstractScreen {
     }
 
     private void displayStatus(AsciiPanel terminal,Map<String,String>status){
-        final int offsetX=13;
+        final int offsetX=FLOOR_WIDTH;
         int x=1;
         int y=0;
         for(String key:status.keySet()){
@@ -108,10 +108,12 @@ public class PlayScreen extends AbstractScreen {
     }
 
     private void displayMessages(AsciiPanel terminal, List<String> messages) {
-        int top = this.screenHeight - messages.size();
-        for (int i = 0; i < messages.size(); i++) {
-            terminal.write(messages.get(i), 1, top + i + 1);
+        int top = this.screenHeight ;
+        terminal.write("Log:", 0, top);
+        for (int i = 0; i < Math.min(oldMessages.size(),5); i++) {
+            terminal.write(oldMessages.get(oldMessages.size()-1-i), 1, top + i + 1);
         }
+        terminal.write("...",1,top+Math.min(oldMessages.size(),5)+1);
         this.oldMessages.addAll(messages);
         messages.clear();
     }

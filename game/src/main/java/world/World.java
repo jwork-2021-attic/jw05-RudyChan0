@@ -6,6 +6,8 @@ import java.util.List;
 import javafx.util.Pair;
 import world.creature.Creature;
 import world.creature.CreatureFactory;
+import world.item.Item;
+import world.item.ItemFactory;
 import world.tile.Tile;
 import world.tile.TileFactory;
 
@@ -18,6 +20,7 @@ public class World{
     private int height;
     private CreatureFactory creatureFactory;
     private TileFactory tileFactory;
+    private ItemFactory itemFactory;
 
     public World(int width,int height){
         this.width=width;
@@ -104,12 +107,20 @@ public class World{
         this.tileFactory=tileFactory;
     }
 
+    public void setItemFactory(ItemFactory itemFactory){
+        this.itemFactory=itemFactory;
+    }
+
     public CreatureFactory creatureFactory(){
         return this.creatureFactory;
     }
 
     public TileFactory tileFactory(){
         return this.tileFactory;
+    }
+
+    public ItemFactory itemFactory(){
+        return itemFactory;
     }
 
     public Creature player(){
