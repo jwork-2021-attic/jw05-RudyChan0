@@ -104,6 +104,10 @@ public class Floor {
                         tiles[w][h] = tileFactory.newFloor();
                         addCreature(creatureFactory.newMonster(), w, h);
                         break;
+                    case "detector":
+                        tiles[w][h] = tileFactory.newFloor();
+                        addCreature(creatureFactory.newDetector(), w, h);
+                        break;
                     case "guard":
                         tiles[w][h] = tileFactory.newFloor();
                         addCreature(creatureFactory.newGuard(), w, h);

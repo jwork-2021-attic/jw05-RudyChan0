@@ -21,19 +21,19 @@ public class TileFactory {
     }
 
     public Tile newWall(){
-        return new Tile(TileKind.WALL,(char) 219, AsciiPanel.brickRed);
+        return new Tile(TileKind.WALL,(char) 178, AsciiPanel.wallRed);
     }
 
     public Tile newUpstair(){
-        return new Tile(TileKind.UPSTAIR,(char)30,AsciiPanel.green);
+        return new Tile(TileKind.UPSTAIR,(char)24,AsciiPanel.brightGreen);
     }
 
     public Tile newDownstair(){
-        return new Tile(TileKind.DOWNSTAIR,(char)31,AsciiPanel.green);
+        return new Tile(TileKind.DOWNSTAIR,(char)25,AsciiPanel.brightGreen);
     }
 
     public Tile newDoorYellow(){
-        return new Tile(TileKind.DOOR_YELLOW,(char)8,AsciiPanel.yellow);
+        return new Tile(TileKind.DOOR_YELLOW,(char)8,AsciiPanel.brightYellow);
     }
 
     public Tile newDoorBlue(){

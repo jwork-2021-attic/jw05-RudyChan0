@@ -30,6 +30,8 @@ public class AsciiPanel extends JPanel {
      */
     public static Color red = new Color(128, 0, 0);
 
+
+    public static Color wallRed=new Color(139,0,0); 
     /**
      * The color green.
      */
@@ -78,7 +80,7 @@ public class AsciiPanel extends JPanel {
     /**
      * A brighter yellow.
      */
-    public static Color brightYellow = new Color(255, 255, 0);
+    public static Color brightYellow = new Color(255, 215, 0);
 
     /**
      * A brighter blue.
@@ -99,6 +101,8 @@ public class AsciiPanel extends JPanel {
      * A brighter white (pure white).
      */
     public static Color brightWhite = new Color(255, 255, 255);
+
+    public static Color pink=new Color(255,105,180);
 
     public static Color coldGrey=new Color(128,138,135);
     public static Color brickRed=new Color(178,34,34);

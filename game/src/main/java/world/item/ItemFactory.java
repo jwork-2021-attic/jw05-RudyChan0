@@ -5,7 +5,7 @@ import asciiPanel.AsciiPanel;
 public class ItemFactory {
 
     public Item newKeyYellow(){
-        return new Item(ItemKind.KEY_YELLOW,(char)28,AsciiPanel.yellow);
+        return new Item(ItemKind.KEY_YELLOW,(char)28,AsciiPanel.brightYellow);
     }
 
     public Item newKeyBlue(){
@@ -17,11 +17,11 @@ public class ItemFactory {
     }
 
     public Item newHeart(){
-        return new Item(ItemKind.HEART,(char)3,AsciiPanel.red);
+        return new Item(ItemKind.HEART,(char)3,AsciiPanel.pink);
     }
 
     public Item newAttack(){
-        return new Item(ItemKind.ATTACK,(char)229,AsciiPanel.red);
+        return new Item(ItemKind.ATTACK,(char)229,AsciiPanel.pink);
     }
 
     public Item newDefence(){
