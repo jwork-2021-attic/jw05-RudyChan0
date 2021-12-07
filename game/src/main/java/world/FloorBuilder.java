@@ -15,7 +15,7 @@ import world.tile.TileFactory;
 
 public class FloorBuilder {
 
-    public static final int FLOOR_NUM = 2;
+    public static final int FLOOR_NUM = 3;
     private CreatureFactory creatureFactory;
     private TileFactory tileFactory;
     private ItemFactory itemFactory;

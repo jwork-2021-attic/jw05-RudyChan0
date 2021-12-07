@@ -1,5 +1,8 @@
 package world.item;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import asciiPanel.AsciiPanel;
 
 public class ItemFactory {

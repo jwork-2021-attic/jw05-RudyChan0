@@ -16,7 +16,7 @@ public class CreatureFactory {
     }
 
     public Creature newPlayer(List<String> messages){
-        Creature player = new Creature(this.world, (char)2, AsciiPanel.brightWhite, 200, 20, 5, 5);
+        Creature player = new Creature(this.world, (char)2, AsciiPanel.brightWhite, 100, 15, 5, 5);
         world.setPlayer(player);
         world.addPlayerToBegin(player);
         new PlayerAI(player,messages);
@@ -25,7 +25,7 @@ public class CreatureFactory {
     }
 
     public Creature newMonster(){
-        Creature monster = new Creature(this.world, (char)64, AsciiPanel.yellow, 20, 10, 5, 2);
+        Creature monster = new Creature(this.world, (char)64, AsciiPanel.brightCyan, 20, 10, 5, 2);
         new MonsterAI(monster);
         new CreatureThread(monster,"monster");
         return monster;
@@ -33,13 +33,13 @@ public class CreatureFactory {
 
     public Creature newDetector(){
         Creature detector = new Creature(this.world, (char)143, AsciiPanel.green, 10, 20, 5, 4);
-        new GuardAI(detector);
+        new DetectorAI(detector);
         new CreatureThread(detector,"detetor");
         return detector;
     }
 
     public Creature newGuard(){
-        Creature guard = new Creature(this.world, (char)234, AsciiPanel.cyan, 30, 15, 10, 1);
+        Creature guard = new Creature(this.world, (char)234, AsciiPanel.cyan, 30, 10, 10, 1);
         new GuardAI(guard);
         new CreatureThread(guard,"guard");
         return guard;

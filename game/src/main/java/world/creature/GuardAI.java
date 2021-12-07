@@ -1,5 +1,7 @@
 package world.creature;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class GuardAI extends MonsterAI{
@@ -27,6 +29,17 @@ public class GuardAI extends MonsterAI{
                 creature.moveBy(1, 0);
                 break;
         }
+    }
+
+    @Override
+    public Map<String,String> status(){
+        Map<String,String> status=new LinkedHashMap<>();
+        status.put("glyph", creature.glyph()+"");
+        status.put("HP", creature.maxHP()+"");
+        status.put("Attack", creature.attackValue()+"");
+        status.put("Defence", creature.defenseValue()+"");
+        status.put("Note", "guard it's place");
+        return status;
     }
 
 }

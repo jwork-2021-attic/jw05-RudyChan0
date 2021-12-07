@@ -83,11 +83,11 @@ public class Floor {
                     case "1":
                         tiles[w][h] = tileFactory.newWall();
                         break;
-                    case "upStair":
+                    case "upstair":
                         tiles[w][h] = tileFactory.newUpstair();
                         upstairCoords = new Pair<>(w, h);
                         break;
-                    case "downStair":
+                    case "downstair":
                         tiles[w][h] = tileFactory.newDownstair();
                         downstairCoords = new Pair<>(w, h);
                         break;
