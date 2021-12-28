@@ -4,9 +4,9 @@ import com.asciiPanel.AsciiPanel;
 import java.awt.Color;
 import java.io.Serializable;
 
-public class TileFactory implements Serializable{
+public class TileFactory {
 
-    public Tile newTile(TileKind kind){
+    public static Tile newTile(TileKind kind){
         if(kind==TileKind.FLOOR)return newFloor();
         else if(kind==TileKind.WALL)return newWall();
         else if(kind==TileKind.UPSTAIR)return newUpstair();
@@ -17,31 +17,31 @@ public class TileFactory implements Serializable{
         else return null;
     }
 
-    public Tile newFloor(){
+    public static Tile newFloor(){
         return new Tile(TileKind.FLOOR,(char)0 , AsciiPanel.coldGrey);
     }
 
-    public Tile newWall(){
+    public static Tile newWall(){
         return new Tile(TileKind.WALL,(char) 178, AsciiPanel.wallRed);
     }
 
-    public Tile newUpstair(){
+    public static Tile newUpstair(){
         return new Tile(TileKind.UPSTAIR,(char)24,AsciiPanel.brightGreen);
     }
 
-    public Tile newDownstair(){
+    public static Tile newDownstair(){
         return new Tile(TileKind.DOWNSTAIR,(char)25,AsciiPanel.brightGreen);
     }
 
-    public Tile newDoorYellow(){
+    public static Tile newDoorYellow(){
         return new Tile(TileKind.DOOR_YELLOW,(char)8,AsciiPanel.brightYellow);
     }
 
-    public Tile newDoorBlue(){
+    public static Tile newDoorBlue(){
         return new Tile(TileKind.DOOR_BLUE,(char)8,AsciiPanel.blue);
     }
 
-    public Tile newDoorRed(){
+    public static Tile newDoorRed(){
         return new Tile(TileKind.DOOR_RED,(char)8,AsciiPanel.red);
     }
 }

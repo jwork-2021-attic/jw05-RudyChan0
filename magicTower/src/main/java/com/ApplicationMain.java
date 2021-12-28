@@ -2,7 +2,6 @@ package com;
      
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -13,7 +12,6 @@ import com.asciiPanel.AsciiFont;
 import com.asciiPanel.AsciiPanel;
 import com.screen.Screen;
 import com.screen.StartScreen;
-import com.world.Floor;
 
 public class ApplicationMain extends JFrame implements KeyListener {
     private AsciiPanel terminal;

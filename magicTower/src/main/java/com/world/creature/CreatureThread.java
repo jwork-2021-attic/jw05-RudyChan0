@@ -1,5 +1,6 @@
 package com.world.creature;
 
+import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 public class CreatureThread extends Thread {

@@ -5,25 +5,17 @@ import com.world.WorldBuilder;
 import com.world.creature.Creature;
 import com.world.creature.CreatureFactory;
 import com.world.item.Item;
-import com.ApplicationMain;
 import com.asciiPanel.AsciiPanel;
-import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class PlayScreen extends AbstractScreen {
     private World world;
-    // private Floor[] floors;
-    // private int floorNum;
-    // private Floor floor;
     private Creature player;
-    private CreatureFactory creatureFactory;
     private final int screenWidth = 24;
     private final int screenHeight = 24;
     private final int FLOOR_WIDTH = 13;
@@ -35,13 +27,9 @@ public class PlayScreen extends AbstractScreen {
 
     public PlayScreen() {
         createWorld();
-        // this.floors=world.floors();
-        // this.floorNum=0;
-        // this.floor=floors[floorNum];
-        this.creatureFactory = world.creatureFactory();
         this.messages = new ArrayList<String>();
         this.oldMessages = new ArrayList<String>();
-        this.player = creatureFactory.newPlayer(this.messages);
+        this.player = CreatureFactory.newPlayer(this.messages,world);
         this.scheduledExecutorService = Executors.newScheduledThreadPool(10);
         controlThreads();
         world.activateThreads();
@@ -62,7 +50,7 @@ public class PlayScreen extends AbstractScreen {
     }
 
     private void createWorld() {
-        this.world = new WorldBuilder(this.screenHeight, this.screenWidth).build();
+        this.world = WorldBuilder.build(this.screenHeight, this.screenWidth);
     }
 
     private void displayFloor(AsciiPanel terminal) {
@@ -131,9 +119,9 @@ public class PlayScreen extends AbstractScreen {
         terminal.write("Attack", 12, top);
         terminal.write("Defence", 20, top);
         terminal.write("Note", 29, top);
-        Creature monster = creatureFactory.newMonster();
-        Creature guard = creatureFactory.newGuard();
-        Creature detector = creatureFactory.newDetector();
+        Creature monster = CreatureFactory.newMonster(world);
+        Creature guard = CreatureFactory.newGuard(world);
+        Creature detector = CreatureFactory.newDetector(world);
         top++;
         displayCreatureInfo(terminal, monster, top + 1);
         displayCreatureInfo(terminal, guard, top + 2);
@@ -156,13 +144,6 @@ public class PlayScreen extends AbstractScreen {
         displayStatus(terminal, player.status());
         displayItemInfo(terminal);
         displayMonsterInfo(terminal);
-        // Player
-        // terminal.write(player.glyph(), player.x() - getScrollX(), player.y() -
-        // getScrollY(), player.color());
-        // Stats
-        // String stats = String.format("%3d/%3d hp", player.hp(), player.maxHP());
-        // terminal.write(stats, 1, 23);
-        // Messages
         displayMessages(terminal, this.messages);
     }
 
@@ -195,12 +176,6 @@ public class PlayScreen extends AbstractScreen {
             case KeyEvent.VK_ESCAPE:
                 return new OptionScreen(this.shutdwonThreads());
         }
-        // if(world.tile(player.x(), player.y())==Tile.EXIT){
-        // return new WinScreen();
-        // }
-        // world.pass(player.x(), player.y(),Tile.PASSED);
-        // world.update();
-        // world.playerUpdate();
         return this;
     }
 
@@ -210,6 +185,10 @@ public class PlayScreen extends AbstractScreen {
 
     public int getScrollY() {
         return Math.max(0, Math.min(player.y() - screenHeight / 2, world.height() - screenHeight));
+    }
+
+    public World world(){
+        return world;
     }
 
     @Override

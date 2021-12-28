@@ -4,42 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import org.omg.PortableInterceptor.INACTIVE;
-
 import javafx.util.Pair;
-
 import java.awt.Color;
-import java.io.Serializable;
 
 import com.world.creature.Creature;
 import com.world.creature.CreatureFactory;
-import com.world.item.Item;
 import com.world.item.ItemFactory;
 import com.world.tile.Tile;
 import com.world.tile.TileFactory;
 import com.world.tile.TileKind;
 
-public class Floor implements Serializable{
+public class Floor {
     private String name;
+    private World world;
     private String[][] map;
     private int width;
     private int height;
     private Tile[][] tiles;
     private List<Creature> creatures;
-    private CreatureFactory creatureFactory;
-    private TileFactory tileFactory;
-    private ItemFactory itemFactory;
 
     private Pair<Integer, Integer> upstairCoords;
     private Pair<Integer, Integer> downstairCoords;
 
     private ExecutorService executorService;
     private final int UPDATE_TIME = 1; // TimeUnit:second
-    // private Floor upFloor;
-    // private Floor downFloor;
 
     public void update() {
         creatures.forEach(Creature::update);
@@ -68,7 +56,12 @@ public class Floor implements Serializable{
     }
 
     public void changeTile(int x,int y,TileKind kind){
-        tiles[x][y]=tileFactory.newTile(kind);
+        tiles[x][y]=TileFactory.newTile(kind);
+    }
+
+    public Floor setWorld(World world){
+        this.world=world;
+        return this;
     }
 
     public Floor buildFromMap() {
@@ -79,57 +72,57 @@ public class Floor implements Serializable{
             for (int w = 0; w < width; w++) {
                 switch (map[h][w]) {
                     case "0":
-                        tiles[w][h] = tileFactory.newFloor();
+                        tiles[w][h] = TileFactory.newFloor();
                         break;
                     case "1":
-                        tiles[w][h] = tileFactory.newWall();
+                        tiles[w][h] = TileFactory.newWall();
                         break;
                     case "upstair":
-                        tiles[w][h] = tileFactory.newUpstair();
+                        tiles[w][h] = TileFactory.newUpstair();
                         upstairCoords = new Pair<>(w, h);
                         break;
                     case "downstair":
-                        tiles[w][h] = tileFactory.newDownstair();
+                        tiles[w][h] = TileFactory.newDownstair();
                         downstairCoords = new Pair<>(w, h);
                         break;
                     case "door_yellow":
-                        tiles[w][h] = tileFactory.newDoorYellow();
+                        tiles[w][h] = TileFactory.newDoorYellow();
                         break;
                     case "door_blue":
-                        tiles[w][h] = tileFactory.newDoorBlue();
+                        tiles[w][h] = TileFactory.newDoorBlue();
                         break;
                     case "door_red":
-                        tiles[w][h] = tileFactory.newDoorRed();
+                        tiles[w][h] = TileFactory.newDoorRed();
                         break;
                     case "monster":
-                        tiles[w][h] = tileFactory.newFloor();
-                        addCreature(creatureFactory.newMonster(), w, h);
+                        tiles[w][h] = TileFactory.newFloor();
+                        addCreature(CreatureFactory.newMonster(world), w, h);
                         break;
                     case "detector":
-                        tiles[w][h] = tileFactory.newFloor();
-                        addCreature(creatureFactory.newDetector(), w, h);
+                        tiles[w][h] = TileFactory.newFloor();
+                        addCreature(CreatureFactory.newDetector(world), w, h);
                         break;
                     case "guard":
-                        tiles[w][h] = tileFactory.newFloor();
-                        addCreature(creatureFactory.newGuard(), w, h);
+                        tiles[w][h] = TileFactory.newFloor();
+                        addCreature(CreatureFactory.newGuard(world), w, h);
                         break;
                     case "heart":
-                        tiles[w][h] = tileFactory.newFloor().setItem(itemFactory.newHeart());
+                        tiles[w][h] = TileFactory.newFloor().setItem(ItemFactory.newHeart());
                         break;
                     case "attack":
-                        tiles[w][h] = tileFactory.newFloor().setItem(itemFactory.newAttack());
+                        tiles[w][h] = TileFactory.newFloor().setItem(ItemFactory.newAttack());
                         break;
                     case "defence":
-                        tiles[w][h] = tileFactory.newFloor().setItem(itemFactory.newDefence());
+                        tiles[w][h] = TileFactory.newFloor().setItem(ItemFactory.newDefence());
                         break;
                     case "key_yellow":
-                        tiles[w][h] = tileFactory.newFloor().setItem(itemFactory.newKeyYellow());
+                        tiles[w][h] = TileFactory.newFloor().setItem(ItemFactory.newKeyYellow());
                         break;
                     case "key_blue":
-                        tiles[w][h] = tileFactory.newFloor().setItem(itemFactory.newKeyBlue());
+                        tiles[w][h] = TileFactory.newFloor().setItem(ItemFactory.newKeyBlue());
                         break;
                     case "key_red":
-                        tiles[w][h] = tileFactory.newFloor().setItem(itemFactory.newKeyRed());
+                        tiles[w][h] = TileFactory.newFloor().setItem(ItemFactory.newKeyRed());
                         break;
 
                 }
@@ -193,29 +186,6 @@ public class Floor implements Serializable{
     public Pair<Integer, Integer> downstairCoords() {
         return downstairCoords;
     }
-
-    public Floor setCreatureFactory(CreatureFactory creatureFactory) {
-        this.creatureFactory = creatureFactory;
-        return this;
-    }
-
-    public Floor setTileFactory(TileFactory tileFactory) {
-        this.tileFactory = tileFactory;
-        return this;
-    }
-
-    public Floor setItemFactory(ItemFactory itemFactory) {
-        this.itemFactory = itemFactory;
-        return this;
-    }
-
-    // public void setUpFloor(Floor floor){
-    // this.upFloor=floor;
-    // }
-
-    // public void setDownFloor(Floor floor){
-    // this.downFloor=floor;
-    // }
 
     public Floor() {
         map = null;

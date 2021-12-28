@@ -6,22 +6,15 @@ import java.util.List;
 
 import javafx.util.Pair;
 import com.world.creature.Creature;
-import com.world.creature.CreatureFactory;
-import com.world.item.Item;
-import com.world.item.ItemFactory;
 import com.world.tile.Tile;
-import com.world.tile.TileFactory;
 
-public class World implements Serializable {
+public class World {
     private Floor[] floors;
     private Floor currentFloor;
     private int floorNum;
     private Creature player;
     private int width;
     private int height;
-    private CreatureFactory creatureFactory;
-    private TileFactory tileFactory;
-    private ItemFactory itemFactory;
 
     public World(int width,int height){
         this.width=width;
@@ -83,8 +76,6 @@ public class World implements Serializable {
     }
 
     public void addPlayerToBegin(Creature player){
-        // System.out.println("in addPlayer: "+floors.length);
-        // System.out.println("in addPlayer: floor0- "+floors[0]);
         floors[0].addCreature(player, 6, 11);
     }
 
@@ -104,30 +95,6 @@ public class World implements Serializable {
 
     public Floor[] floors(){
         return floors;
-    }
-
-    public void setCreatureFactory(CreatureFactory creatureFactory){
-        this.creatureFactory=creatureFactory;
-    }
-
-    public void setTileFactory(TileFactory tileFactory){
-        this.tileFactory=tileFactory;
-    }
-
-    public void setItemFactory(ItemFactory itemFactory){
-        this.itemFactory=itemFactory;
-    }
-
-    public CreatureFactory creatureFactory(){
-        return this.creatureFactory;
-    }
-
-    public TileFactory tileFactory(){
-        return this.tileFactory;
-    }
-
-    public ItemFactory itemFactory(){
-        return itemFactory;
     }
 
     public Creature player(){
