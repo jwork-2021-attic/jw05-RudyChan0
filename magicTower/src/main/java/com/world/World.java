@@ -17,6 +17,13 @@ public class World {
     private int height;
 
     public World(int width,int height){
+        this.floorNum=0;
+        this.width=width;
+        this.height=height;
+    }
+
+    public World(int floorNum,int width,int height){
+        this.floorNum=floorNum;
         this.width=width;
         this.height=height;
     }
@@ -81,8 +88,11 @@ public class World {
 
     public void setFloors(Floor[] floors){
         this.floors=floors;
-        this.floorNum=0;
         this.currentFloor=floors[this.floorNum];
+    }
+
+    public void setCurrentFloor(Floor floor){
+        this.currentFloor=floor;
     }
 
     public int floorNum(){

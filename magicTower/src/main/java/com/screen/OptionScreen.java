@@ -1,10 +1,16 @@
 package com.screen;
 
 import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import com.asciiPanel.AsciiPanel;
+import com.world.Archive;
+import com.world.World;
+
+import javafx.concurrent.Worker;
 
 
 public class OptionScreen extends AbstractScreen {
@@ -49,16 +55,9 @@ public class OptionScreen extends AbstractScreen {
                     case 0:
                         return playScreen.resumeThreads();
                     case 1:
-                        try {
-                            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("world.dat"));
-                            out.writeObject(playScreen.world().floors());
-                        } catch (Exception e) {
-                            System.out.println("save failed");
-                            System.out.println(e);
-                        }
-                        break;
+                        return new SaveScreen(this, playScreen);
                     case 2:
-                        break;
+                        return new LoadScreen(this);
                     case 3:
                         System.exit(0);
                 }

@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javafx.util.Pair;
 import java.awt.Color;
+import java.io.Serializable;
 
 import com.world.creature.Creature;
 import com.world.creature.CreatureFactory;
@@ -14,8 +15,7 @@ import com.world.tile.Tile;
 import com.world.tile.TileFactory;
 import com.world.tile.TileKind;
 
-public class Floor {
-    private String name;
+public class Floor{
     private World world;
     private String[][] map;
     private int width;
@@ -162,6 +162,10 @@ public class Floor {
         return tiles[x][y];
     }
 
+    public Tile[][] tiles(){
+        return tiles;
+    }
+
     public int width() {
         return width;
     }
@@ -192,6 +196,28 @@ public class Floor {
         tiles = null;
         creatures = new ArrayList<>();
 
+    }
+
+    public FloorData getFloorData(){
+        return new FloorData(this);
+    }
+
+    public static Floor dataToFloor(FloorData floorData,World world){
+        Floor floor=new Floor();
+        floor.world=world;
+
+        floor.map=floorData.map();
+        floor.width=floorData.width();
+        floor.height=floorData.height();
+        floor.tiles=floorData.tiles();
+        floor.creatures=floorData.creatures();
+        floor.upstairCoords=floorData.upstairCoords();
+        floor.downstairCoords=floorData.downstairCoords();
+        floor.creatures.forEach(creature->{
+            creature.setFloor(floor);
+            creature.setWorld(world);
+        });
+        return floor;
     }
 
     public static void main(String[] args) {

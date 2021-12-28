@@ -35,6 +35,17 @@ public class PlayScreen extends AbstractScreen {
         world.activateThreads();
     }
 
+    public PlayScreen(World world){
+        this.world=world;
+        this.messages = new ArrayList<String>();
+        this.oldMessages = new ArrayList<String>();
+        this.player = world.player();
+        player.setMessages(messages);
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(10);
+        controlThreads();
+        world.activateThreads();
+    }
+
     public PlayScreen shutdwonThreads(){
         world.shutdwonThreads();
         return this;

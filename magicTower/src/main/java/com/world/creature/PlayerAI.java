@@ -60,8 +60,6 @@ public class PlayerAI extends CreatureAI{
     }
 
 
-    //private 
-
     @Override
     public void onNotify(String message) {
         this.messages.add(message);
@@ -81,6 +79,10 @@ public class PlayerAI extends CreatureAI{
         // status.put("Item", items);
 
         return status;
+    }
+
+    public void setMessages(List<String> messages){
+        this.messages=messages;
     }
 
 }

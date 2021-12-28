@@ -13,8 +13,8 @@ import com.world.tile.Tile;
 
 public class Creature implements Serializable {
     // Location
-    private World world;
-    private Floor floor;
+    private transient World world;
+    private transient Floor floor;
     private int floorNum;
     private int x;
     private int y;
@@ -157,8 +157,18 @@ public class Creature implements Serializable {
         this.floor = floor;
     }
 
+    public void setWorld(World world){
+        this.world=world;
+    }
+
     public void setFloorNum(int floorNum) {
         this.floorNum = floorNum;
+    }
+
+    public void setMessages(List<String> messages){
+        if(ai instanceof PlayerAI){
+            ((PlayerAI)ai).setMessages(messages);
+        }
     }
 
     public int floorNum() {

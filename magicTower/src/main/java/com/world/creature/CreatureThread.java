@@ -3,7 +3,7 @@ package com.world.creature;
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
-public class CreatureThread extends Thread {
+public class CreatureThread extends Thread implements Serializable{
     private Creature creature;
     private final int SLEEP_TIME = 1000; // TimeUnit: MILLISECONDS
     private volatile boolean isShutdownRequested=false;

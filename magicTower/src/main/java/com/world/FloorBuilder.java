@@ -10,7 +10,7 @@ public class FloorBuilder {
     public static final int FLOOR_NUM = 3;
 
     public static Floor[] buildFloors(World world) {
-        System.out.println("path in FloorBuilder : " + System.getProperty("user.dir"));
+        //System.out.println("path in FloorBuilder : " + System.getProperty("user.dir"));
         Floor[] floors = new Floor[FLOOR_NUM];
         for (int i = 1; i <= FLOOR_NUM; i++) {
             try {
