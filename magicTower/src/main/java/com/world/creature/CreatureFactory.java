@@ -29,7 +29,7 @@ public class CreatureFactory {
 
     public static Creature newPlayer(List<String> messages,World world,int id){
         Color[] colors={AsciiPanel.brightWhite,AsciiPanel.brightBlue,AsciiPanel.brightYellow,AsciiPanel.brickRed};
-        Creature player = new Creature(world, (char)2, colors[id], 10, 15, 5, 5);
+        Creature player = new Creature(world, (char)2, colors[id], 40, 10, 5, 5);
         world.addPlayerToMaze(player,id);
         new PlayerAI(player,messages);
         new CreatureThread(player,"player");

@@ -3,6 +3,7 @@ package com.world;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.awt.Color;
@@ -49,11 +50,10 @@ public class SnapShot implements Serializable {
 
 
     private Map<String, String> getStatus(Creature creature) {
-        Map<String, String> status = new HashMap<>();
+        Map<String, String> status = new LinkedHashMap<>();
         status.put("hp", creature.hp() + "");
         status.put("attack", creature.attackValue() + "");
         status.put("defence", creature.defenseValue() + "");
-
         return status;
     }
 

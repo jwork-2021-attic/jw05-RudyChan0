@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
+import java.awt.Color;
 
 public class ClientScreen extends PlayScreen{
     private MyClient client;
@@ -32,7 +33,11 @@ public class ClientScreen extends PlayScreen{
             } 
             final int offsetX = FLOOR_WIDTH + 4;
             int x=0,y=0;
+            Color[] colors={AsciiPanel.brightWhite,AsciiPanel.brightBlue,AsciiPanel.brightYellow,AsciiPanel.brickRed};
             if(snapShot.players().size()>id){
+                terminal.write("Player: ", x + offsetX, y);
+                terminal.write((char)2, x + offsetX+8, y,colors[id]);
+                y+=2;
                 Map<String, String> status=snapShot.status(id);
                 for (String key : status.keySet()) {
                     terminal.write(key + ": " + status.get(key), x + offsetX, y);

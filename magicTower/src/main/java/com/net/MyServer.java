@@ -75,8 +75,10 @@ public class MyServer {
                                     socketChannel.configureBlocking(false);
                                     // socketChannel.register(selector, SelectionKey.OP_WRITE);
                                     socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+                                    sendId(socketChannel,++clientNum);
+                                    
                                     System.out.println("connect to client!");
-                                    CreatureFactory.newPlayer(null,world,++clientNum);
+                                    CreatureFactory.newPlayer(null,world,clientNum);
                                 }
                             } catch (Exception e) {
                                 System.out.println("connect to client failed...");
@@ -90,6 +92,18 @@ public class MyServer {
                 System.out.println("serverThread failed...");
             }
         });
+    }
+
+    private void sendId(SocketChannel socketChannel,int id){
+        try{
+        ByteBuffer buffer=ByteBuffer.allocate(12);
+        buffer.clear();
+        buffer.put(ByteUtil.getByteBuffer(id+""));
+        buffer.flip();
+        socketChannel.write(buffer);
+        }catch(Exception e){
+            System.out.println("send ID failed...");
+        }
     }
 
     private void read(SelectionKey key) {

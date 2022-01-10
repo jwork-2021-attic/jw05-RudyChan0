@@ -17,7 +17,6 @@ import com.world.World;
 public class MyClient {
     final String ADDRESS = "127.0.0.1";
     final int PORT = 4444;
-    private static int num = 1;
     private int id;
 
     // private World world;
@@ -30,7 +29,7 @@ public class MyClient {
     private SnapShot snapShot;
 
     public MyClient() {
-        this.id = MyClient.num++;
+        this.id = -1;
         // this.world = world;
         toSend = new ArrayList<>();
         snapShot = null;
@@ -43,12 +42,29 @@ public class MyClient {
                     System.out.println("client" + id + " connect failed...");
                 }
             }
+            readId(socketChannel);
             System.out.println("client" + id + " connect success");
             initialThread();
             // do something
         } catch (Exception e) {
             System.out.println("client" + id + " connect failed with exception...");
             System.out.println(e);
+        }
+    }
+
+    private void readId(SocketChannel socketChannel) {
+        try {
+            ByteBuffer buffer = ByteBuffer.allocate(12);
+            if (socketChannel.read(buffer) != 0 && socketChannel.read(buffer) != -1) {
+                buffer.flip();
+                this.id = Integer.parseInt(ByteUtil.getString(buffer));
+            }
+            else{
+                readId(socketChannel);
+            }
+        } catch (Exception e) {
+            System.out.println("read ID failed...");
+            readId(socketChannel);
         }
     }
 
@@ -66,7 +82,7 @@ public class MyClient {
             } catch (Exception e) {
                 System.out.println("read from server failed...");
                 System.out.print(e);
-                //System.exit(1);
+                // System.exit(1);
             }
         });
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
@@ -97,10 +113,6 @@ public class MyClient {
 
     public SnapShot snapShot() {
         return snapShot;
-    }
-
-    public static int num() {
-        return MyClient.num;
     }
 
     public static void main(String[] args) {
