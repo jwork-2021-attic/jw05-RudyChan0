@@ -3,6 +3,8 @@ package com.screen;
 import java.awt.event.KeyEvent;
 
 import com.asciiPanel.AsciiPanel;
+import com.world.World;
+
 import javafx.application.Application;
 
 /**
@@ -18,4 +20,5 @@ public interface Screen {
     public void update();
 
     public Screen checkPlayer();
+
 }

@@ -16,12 +16,29 @@ public class FloorBuilder {
             try {
                 InputStream in = FloorBuilder.class.getClassLoader().getResourceAsStream("maps/floor" + i + ".json");
                 String json = IOUtils.toString(in);
+                in.close();
                 Gson gson = new Gson();
                 Floor floor = gson.fromJson(json, Floor.class);
                 floors[i - 1] = floor.setWorld(world).buildFromMap();
             } catch (Exception e) {
                 System.out.println("floor " + i + " build failed...");
             }
+        }
+        return floors;
+    }
+
+    public static Floor[] buildMaze(World world){
+        Floor[] floors = new Floor[1];
+        try {
+            InputStream in = FloorBuilder.class.getClassLoader().getResourceAsStream("maps/maze.json");
+            String json = IOUtils.toString(in);
+            in.close();
+            Gson gson = new Gson();
+            Floor floor = gson.fromJson(json, Floor.class);
+            floors[0]=floor.setWorld(world).buildFromMap();
+            return floors;
+        } catch (Exception e) {
+            System.out.println("maze build failed...");
         }
         return floors;
     }

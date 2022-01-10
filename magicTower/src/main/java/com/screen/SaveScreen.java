@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.Principal;
+import java.security.cert.PKIXRevocationChecker.Option;
 
 import com.asciiPanel.AsciiPanel;
 import com.world.Archive;
@@ -14,7 +15,7 @@ import com.world.World;
 
 import javafx.concurrent.Worker;
 
-public class SaveScreen extends AbstractScreen {
+public class SaveScreen extends PlayScreen {
 
     private OptionScreen optionScreen;
     private PlayScreen playScreen;
@@ -68,6 +69,7 @@ public class SaveScreen extends AbstractScreen {
                 ObjectInputStream in = new ObjectInputStream(new FileInputStream("src/main/resources/saves/save"+i+".dat"));
                 Archive archive= (Archive)in.readObject();
                 status[i]=archive.time();
+                in.close();
             } catch (Exception e) {
                 if(e instanceof FileNotFoundException){}
                 else System.out.println(e);

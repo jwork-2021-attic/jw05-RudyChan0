@@ -16,13 +16,13 @@ import javafx.concurrent.Worker;
 
 public class LoadScreen extends AbstractScreen {
 
-    private OptionScreen optionScreen;
+    private Screen preScreen;
     private int index;
     private final int SaveNum = 4;
     private String[] status;
 
-    public LoadScreen(OptionScreen optionScreen) {
-        this.optionScreen = optionScreen;
+    public LoadScreen(Screen preScreen) {
+        this.preScreen = preScreen;
         index = 0;
         status=saveStatus();
     }
@@ -66,6 +66,7 @@ public class LoadScreen extends AbstractScreen {
                 ObjectInputStream in = new ObjectInputStream(new FileInputStream("src/main/resources/saves/save"+i+".dat"));
                 Archive archive= (Archive)in.readObject();
                 status[i]=archive.time();
+                in.close();
             } catch (Exception e) {
                 if(e instanceof FileNotFoundException){}
                 else System.out.println(e);
@@ -81,6 +82,7 @@ public class LoadScreen extends AbstractScreen {
                 try {
                     ObjectInputStream in = new ObjectInputStream(new FileInputStream("src/main/resources/saves/save"+index+".dat"));
                     Archive archive= (Archive)in.readObject();
+                    in.close();
                     return new PlayScreen(archive.toWorld());
                 } catch (Exception e) {
                     System.out.println("load failed");
@@ -88,7 +90,7 @@ public class LoadScreen extends AbstractScreen {
                 }
 
             case KeyEvent.VK_ESCAPE:
-                return optionScreen;
+                return preScreen;
             case KeyEvent.VK_UP:
                 index = index > 0 ? --index : 0;
                 break;

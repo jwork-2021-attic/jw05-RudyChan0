@@ -77,13 +77,18 @@ public class World {
         return currentFloor.tile(x, y);
     }
 
-
     public void setPlayer(Creature player){
         this.player=player;
     }
 
     public void addPlayerToBegin(Creature player){
         floors[0].addCreature(player, 6, 11);
+    }
+
+    public void addPlayerToMaze(Creature player,int id){
+        int[] xs={1,1,11,11};
+        int[] ys={1,11,1,11};
+        floors[0].addCreature(player, xs[id], ys[id]);
     }
 
     public void setFloors(Floor[] floors){
@@ -99,7 +104,7 @@ public class World {
         return floorNum;
     }
 
-    public Floor currenFloor(){
+    public Floor currentFloor(){
         return currentFloor;
     }
 

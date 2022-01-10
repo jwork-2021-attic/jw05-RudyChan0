@@ -14,16 +14,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class PlayScreen extends AbstractScreen {
-    private World world;
-    private Creature player;
-    private final int screenWidth = 24;
-    private final int screenHeight = 24;
-    private final int FLOOR_WIDTH = 13;
-    private final int FLOOR_HEIGHT = 13;
-    private List<String> messages;
-    private List<String> oldMessages;
+    protected World world;
+    protected Creature player;
+    protected final int screenWidth = 24;
+    protected final int screenHeight = 24;
+    protected final int FLOOR_WIDTH = 13;
+    protected final int FLOOR_HEIGHT = 13;
+    protected List<String> messages;
+    protected List<String> oldMessages;
 
-    private ScheduledExecutorService scheduledExecutorService;
+    protected ScheduledExecutorService scheduledExecutorService;
 
     public PlayScreen() {
         createWorld();
@@ -31,7 +31,7 @@ public class PlayScreen extends AbstractScreen {
         this.oldMessages = new ArrayList<String>();
         this.player = CreatureFactory.newPlayer(this.messages,world);
         this.scheduledExecutorService = Executors.newScheduledThreadPool(10);
-        controlThreads();
+        //controlThreads();
         world.activateThreads();
     }
 
@@ -42,7 +42,7 @@ public class PlayScreen extends AbstractScreen {
         this.player = world.player();
         player.setMessages(messages);
         this.scheduledExecutorService = Executors.newScheduledThreadPool(10);
-        controlThreads();
+        //controlThreads();
         world.activateThreads();
     }
 
@@ -56,15 +56,11 @@ public class PlayScreen extends AbstractScreen {
         return this;
     }
 
-    public void controlThreads() {
-
-    }
-
     private void createWorld() {
         this.world = WorldBuilder.build(this.screenHeight, this.screenWidth);
     }
 
-    private void displayFloor(AsciiPanel terminal) {
+    protected void displayFloor(AsciiPanel terminal) {
         // Show terrain
         final int X_OFFSET = 2;
         for (int x = 0; x < FLOOR_WIDTH; x++) {
@@ -86,14 +82,13 @@ public class PlayScreen extends AbstractScreen {
         // world.update();
     }
 
-    private void displayStatus(AsciiPanel terminal, Map<String, String> status) {
+    protected void displayStatus(AsciiPanel terminal, Map<String, String> status) {
         final int offsetX = FLOOR_WIDTH + 4;
         int x = 0;
         int y = 0;
         for (String key : status.keySet()) {
             terminal.write(key + ": " + status.get(key), x + offsetX, y);
-            y++;
-            y++;
+            y+=2;
         }
         displayItems(terminal, y);
     }

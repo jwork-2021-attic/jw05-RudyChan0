@@ -6,6 +6,8 @@ import java.security.Guard;
 import java.util.List;
 
 import com.world.World;
+import java.awt.Color;
+
 import com.world.Floor;
 import com.asciiPanel.AsciiPanel;
 
@@ -20,6 +22,15 @@ public class CreatureFactory {
         Creature player = new Creature(world, (char)2, AsciiPanel.brightWhite, 10, 15, 5, 5);
         world.setPlayer(player);
         world.addPlayerToBegin(player);
+        new PlayerAI(player,messages);
+        new CreatureThread(player,"player");
+        return player;
+    }
+
+    public static Creature newPlayer(List<String> messages,World world,int id){
+        Color[] colors={AsciiPanel.brightWhite,AsciiPanel.brightBlue,AsciiPanel.brightYellow,AsciiPanel.brickRed};
+        Creature player = new Creature(world, (char)2, colors[id], 10, 15, 5, 5);
+        world.addPlayerToMaze(player,id);
         new PlayerAI(player,messages);
         new CreatureThread(player,"player");
         return player;

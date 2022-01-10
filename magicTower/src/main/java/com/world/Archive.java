@@ -58,7 +58,7 @@ public class Archive implements Serializable {
 
     public Creature player(World world){
         player.setWorld(world);
-        player.setFloor(world.currenFloor());
+        player.setFloor(world.currentFloor());
         return player;
     }
 

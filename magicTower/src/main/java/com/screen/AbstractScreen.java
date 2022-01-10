@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import com.ApplicationMain;
 import com.asciiPanel.AsciiPanel;
+import com.world.World;
 
 
 public class AbstractScreen implements Screen {
@@ -23,4 +24,5 @@ public class AbstractScreen implements Screen {
     public Screen checkPlayer(){
         return this;
     }
+
 }

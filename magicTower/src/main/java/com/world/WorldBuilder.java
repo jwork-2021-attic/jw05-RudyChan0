@@ -8,5 +8,10 @@ public class WorldBuilder {
         return world;
     }
 
+    public static World buildMaze(int width,int height){
+        World world=new World(width, height);
+        world.setFloors(FloorBuilder.buildMaze(world));
+        return world;
+    }
     
 }
