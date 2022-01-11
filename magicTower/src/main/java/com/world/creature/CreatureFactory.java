@@ -19,7 +19,7 @@ public class CreatureFactory {
     // }
 
     public static Creature newPlayer(List<String> messages,World world){
-        Creature player = new Creature(world, (char)2, AsciiPanel.brightWhite, 10, 15, 5, 5);
+        Creature player = new Creature(world, (char)2, AsciiPanel.brightWhite, 40, 15, 5, 5);
         world.setPlayer(player);
         world.addPlayerToBegin(player);
         new PlayerAI(player,messages);
