@@ -26,7 +26,7 @@ public class MyServer {
 
     private World world;
 
-    private int clientNum=0;
+    private int clientNum = 0;
 
     private ServerSocketChannel serverSocketChannel;
     private Selector selector;
@@ -59,7 +59,7 @@ public class MyServer {
         // scheduledExecutorService.scheduleAtFixedRate(writeThread(), 0, 50,
         // TimeUnit.MILLISECONDS);
         readyToSend = new ArrayList<>();
-        //messages = new ArrayList<>();
+        // messages = new ArrayList<>();
     }
 
     public Thread serverThread() {
@@ -75,10 +75,10 @@ public class MyServer {
                                     socketChannel.configureBlocking(false);
                                     // socketChannel.register(selector, SelectionKey.OP_WRITE);
                                     socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
-                                    sendId(socketChannel,++clientNum);
-                                    
+                                    sendId(socketChannel, ++clientNum);
+
                                     System.out.println("connect to client!");
-                                    CreatureFactory.newPlayer(null,world,clientNum);
+                                    CreatureFactory.newPlayer(null, world, clientNum);
                                 }
                             } catch (Exception e) {
                                 System.out.println("connect to client failed...");
@@ -94,14 +94,14 @@ public class MyServer {
         });
     }
 
-    private void sendId(SocketChannel socketChannel,int id){
-        try{
-        ByteBuffer buffer=ByteBuffer.allocate(12);
-        buffer.clear();
-        buffer.put(ByteUtil.getByteBuffer(id+""));
-        buffer.flip();
-        socketChannel.write(buffer);
-        }catch(Exception e){
+    private void sendId(SocketChannel socketChannel, int id) {
+        try {
+            ByteBuffer buffer = ByteBuffer.allocate(12);
+            buffer.clear();
+            buffer.put(ByteUtil.getByteBuffer(id + ""));
+            buffer.flip();
+            socketChannel.write(buffer);
+        } catch (Exception e) {
             System.out.println("send ID failed...");
         }
     }
@@ -117,7 +117,7 @@ public class MyServer {
                 });
             }
         } catch (Exception e) {
-            System.out.println("server read failed...");
+            // System.out.println("server read failed...");
         }
     }
 
@@ -125,15 +125,16 @@ public class MyServer {
         return new Thread(() -> {
             try {
                 if (!readyToSend.isEmpty()) {
-                    ByteBuffer buffer = ByteBuffer.allocate(4096);
-                    buffer.clear();
-                    buffer.put(ByteUtil.getByteBuffer(readyToSend.get(0)));
+                    SnapShot snapShot = readyToSend.get(0);
                     readyToSend.remove(0);
-                    buffer.flip();
                     selector.select();
                     selector.selectedKeys().forEach(key -> {
                         try {
                             if (key.isWritable()) {
+                                ByteBuffer buffer = ByteBuffer.allocate(4096);
+                                buffer.clear();
+                                buffer.put(ByteUtil.getByteBuffer(snapShot));
+                                buffer.flip();
                                 ((SocketChannel) key.channel()).write(buffer);
                             }
                         } catch (Exception e) {
@@ -153,10 +154,10 @@ public class MyServer {
     }
 
     private void handleAction(String action) {
-        System.out.println("handle action: "+action);
-        int id = action.charAt(0)-48;
+        System.out.println("handle action: " + action);
+        int id = action.charAt(0) - 48;
         char move = action.charAt(1);
-        // 1 up 2 down 3 left 4 right 
+        // 1 up 2 down 3 left 4 right
         switch (move) {
             case '1':
                 world.creatures().get(id).moveBy(0, -1);
