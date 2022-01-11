@@ -4,12 +4,14 @@ import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.Principal;
 
 import com.asciiPanel.AsciiPanel;
 import com.world.Archive;
+import com.world.FloorBuilder;
 import com.world.World;
 
 import javafx.concurrent.Worker;
@@ -63,7 +65,9 @@ public class LoadScreen extends AbstractScreen {
         String[] status={"null","null","null","null"};
         for(int i=0;i<SaveNum;i++){
             try {
-                ObjectInputStream in = new ObjectInputStream(new FileInputStream("src/main/resources/saves/save"+i+".dat"));
+                InputStream inStream = Archive.class.getClassLoader().getResourceAsStream("saves/save" + i + ".dat");
+                ObjectInputStream in = new ObjectInputStream(inStream);
+                //ObjectInputStream in = new ObjectInputStream(new FileInputStream("src/main/resources/saves/save"+i+".dat"));
                 Archive archive= (Archive)in.readObject();
                 status[i]=archive.time();
                 in.close();
